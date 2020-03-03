@@ -161,7 +161,7 @@ Game model
 | GET         | `/party/:id`                  | {id}                         |                |              | Show specific party                                     |
 | POST        | `/parties/add-tournament`     | {}                           | 201            | 400          | Create and save a new tournament                             |
 | PUT         | `/parties/edit/:id`           | {name,img,players}           | 200            | 400          | edit party                                              |
-| DELETE      | `/parties/delete/:id`         | {id}                         | 201            | 400          | delete tournament                                            |
+| DELETE      | `/parties/delete/:id`         | {id}                         | 201            | 400          | delete party                                            |
 | GET         | `/profile`                    |                              |                | 400          | show profile                                                 |
 | GET         | `/profile/:id`                | {id}                         |                |              | show specific profile                                         |
 
