@@ -173,7 +173,7 @@ Game model
 
 ### Trello/Kanban
 
-[Link to your trello board](https://trello.com/b/PBqtkUFX/curasan) 
+[Link to your trello board](https://trello.com/invite/b/zH5UNjzn/acec2e53155b4adcfaa259b59edc0da8/house-party) 
 or picture of your physical board
 
 ### Git
