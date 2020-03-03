@@ -112,7 +112,7 @@ User profile:
 
 User model
 
-​```javascript
+```javascript
 {
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -124,13 +124,13 @@ User model
   profilePicture: { type: String, required: true },
   bio: { type: String, required: true }
 }
-​```
+```
 
 
 
 Game model
 
-​```javascript
+```javascript
 {
   title: { type: String, required: true },
   description: { type: String, required: true },
@@ -143,7 +143,7 @@ Game model
   hour: { type: String, required: true },
   photo: String
 }
-​```
+```
 
 
 <br>
@@ -157,17 +157,13 @@ Game model
 | POST        | `/auth/signup`                | {name, email, password}      | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
 | POST        | `/auth/login`                 | {username, password}         | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session |
 | POST        | `/auth/logout`                | (empty)                      | 204            | 400          | Logs out the user                                            |
-| GET         | `/party`                      |                              |                | 400          | Show all tournaments                                         |
-| GET         | `/party/:id`                  | {id}                         |                |              | Show specific tournament                                     |
+| GET         | `/parties`                      |                              |                | 400          | Show all parties                                         |
+| GET         | `/party/:id`                  | {id}                         |                |              | Show specific party                                     |
 | POST        | `/parties/add-tournament`     | {}                           | 201            | 400          | Create and save a new tournament                             |
-| PUT         | `/parties/edit/:id`           | {name,img,players}           | 200            | 400          | edit tournament                                              |
+| PUT         | `/parties/edit/:id`           | {name,img,players}           | 200            | 400          | edit party                                              |
 | DELETE      | `/parties/delete/:id`         | {id}                         | 201            | 400          | delete tournament                                            |
-| GET         | `/profile`                    |                              |                | 400          | show players                                                 |
-| GET         | `/profile/:id`                | {id}                         |                |              | show specific player                                         |
-| POST        | `/players/add-player`         | {name,img,tournamentId}      | 200            | 404          | add player                                                   |
-| PUT         | `/players/edit/:id`           | {name,img}                   | 201            | 400          | edit player                                                  |
-| DELETE      | `/players/delete/:id`         | {id}                         | 200            | 400          | delete player                                                |
-
+| GET         | `/profile`                    |                              |                | 400          | show profile                                                 |
+| GET         | `/profile/:id`                | {id}                         |                |              | show specific profile                                         |
 
 
 <br>
