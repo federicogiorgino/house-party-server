@@ -44,7 +44,7 @@ User profile:
 | `/parties/add`            | CreatePartyPage       | user only `<PrivateRoute>`  | Adds a party                                                  |
 | `/parties/:id`            | ShowPartyPage    | user only `<PrivateRoute>`  | Details of a party                                            |
 | `/parties/edit/:id`              | EditPartyPage                  | user only `<PrivateRoute>`  | Edit/ Delete party                                                  |
-| `/party/guest`          | GuestsPage           | user only  `<PrivateRoute>` | List of attending guest of a party                            |
+| `/parties/guest`          | GuestsPage           | user only  `<PrivateRoute>` | List of attending guest of a party                            |
 | `/profile`                | ProfilePage          | user only  `<PrivateRoute>` | Shows user profile page                                       |
 | `/profile/:id`            | OthersProfilePage      | user only  `<PrivateRoute>` | Views other user profile info                                       |
 | `/profile/edit/:id`            | UserProfileEditPage      | user only  `<PrivateRoute>` | Edits user profile info                                       |
