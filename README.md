@@ -135,12 +135,12 @@ Party model
 | POST        | `/auth/login`         | {username, password}    | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session              |
 | POST        | `/auth/logout`        | (empty)                 | 204            | 400          | Logs out the user                                                                                                               |
 | GET         | `/parties`            |                         |                | 400          | Show all parties                                                                                                                |
-| GET         | `/parties/:id`          | {id}                    |                |              | Show specific party                                                                                                             |
+| GET         | `/parties/:id`        | {id}                    |                |              | Show specific party                                                                                                             |
 | POST        | `/parties/add-party`  | {}                      | 201            | 400          | Create and save a new tournament                                                                                                |
 | PUT         | `/parties/edit/:id`   | {name,img,players}      | 200            | 400          | edit party                                                                                                                      |
 | DELETE      | `/parties/delete/:id` | {id}                    | 201            | 400          | delete party                                                                                                                    |
-| GET         | `/profile`            |                         |                | 400          | show profile                                                                                                                    |
-| GET         | `/profile/:id`        | {id}                    |                |              | show specific profile                                                                                                           |
+| GET         | `/user`               |                         |                | 400          | show user                                                                                                                       |
+| GET         | `/user/:id`           | {id}                    |                |              | show specific user                                                                                                              |
 
 <br>
 
