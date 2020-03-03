@@ -40,13 +40,15 @@ User profile:
 | `/signup`                 | SignupPage           | anon only  `<AnonRoute>`    | Signup form, link to login, navigate to homepage after signup |
 | `/login`                  | LoginPage            | anon only `<AnonRoute>`     | Login form, link to signup, navigate to homepage after login  |
 | `/logout`                 | n/a                  | user only `<PrivateRoute>`  | Navigate to homepage after logout, expire session             |
-| `/parties`                | AllPartiesPage       | user only `<PrivateRoute>`  | Shows all party in a list                                     |
-| `/parties/add`            | AllPartiesPage       | user only `<PrivateRoute>`  | Adds a party                                                  |
-| `/parties/:id`            | SinglePartyPage.     | user only `<PrivateRoute>`  | Details of a party                                            |
-| `/party/:id`              | n/a                  | user only `<PrivateRoute>`  | Delete party                                                  |
+| `/parties`                | ListPartiesPage       | user only `<PrivateRoute>`  | Shows all party in a list                                     |
+| `/parties/add`            | CreatePartyPage       | user only `<PrivateRoute>`  | Adds a party                                                  |
+| `/parties/:id`            | ShowPartyPage    | user only `<PrivateRoute>`  | Details of a party                                            |
+| `/parties/edit/:id`              | EditPartyPage                  | user only `<PrivateRoute>`  | Edit/ Delete party                                                  |
 | `/party/guest`          | GuestsPage           | user only  `<PrivateRoute>` | List of attending guest of a party                            |
 | `/profile`                | ProfilePage          | user only  `<PrivateRoute>` | Shows user profile page                                       |
-| `/profile/:id`            | ProfileEditPage      | user only  `<PrivateRoute>` | Edits user profile info                                       |
+| `/profile/:id`            | OthersProfilePage      | user only  `<PrivateRoute>` | Views other user profile info                                       |
+| `/profile/edit/:id`            | UserProfileEditPage      | user only  `<PrivateRoute>` | Edits user profile info                                       |
+
 
 
 
@@ -57,15 +59,21 @@ User profile:
 
 - LoginPage
 
-- AllPartiesPage
+- SignupPage
 
-- SinglePartyPage
+- ListPartiesPage
 
-- GuestPage
+- CreatePartyPage
+
+- ShowPartyPage
+
+- GuestsPage
 
 - ProfilePage
 
-- ProfileEditPage
+- OthersProfilePage
+
+- UserProfileEditPage
 
 - Navbar
 
@@ -82,21 +90,13 @@ User profile:
   - auth.logout()
   - auth.me()
   - auth.getUser() // synchronous
-- Tournament Service
-  - tournament.list()
-  - tournament.detail(id)
-  - tournament.add(id)
-  - tournament.delete(id)
   
-- Player Service 
-
-  - player.detail(id)
-  - player.add(id)
-  - player.delete(id)
-
-- Game Service
-
-  - Game.put(id)
+- Party Service
+  - party.list()
+  - party.detail(id)
+  - party.add(id)
+  - party.delete(id)
+ 
 
 
 
