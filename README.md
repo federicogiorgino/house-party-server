@@ -128,7 +128,7 @@ User model
 
 
 
-Game model
+Party model
 
 ```javascript
 {
