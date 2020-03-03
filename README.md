@@ -159,7 +159,7 @@ Party model
 | POST        | `/auth/logout`                | (empty)                      | 204            | 400          | Logs out the user                                            |
 | GET         | `/parties`                      |                              |                | 400          | Show all parties                                         |
 | GET         | `/party/:id`                  | {id}                         |                |              | Show specific party                                     |
-| POST        | `/parties/add-tournament`     | {}                           | 201            | 400          | Create and save a new tournament                             |
+| POST        | `/parties/add-party`     | {}                           | 201            | 400          | Create and save a new tournament                             |
 | PUT         | `/parties/edit/:id`           | {name,img,players}           | 200            | 400          | edit party                                              |
 | DELETE      | `/parties/delete/:id`         | {id}                         | 201            | 400          | delete party                                            |
 | GET         | `/profile`                    |                              |                | 400          | show profile                                                 |
@@ -174,7 +174,7 @@ Party model
 ### Trello/Kanban
 
 [Link to your trello board](https://trello.com/invite/b/zH5UNjzn/acec2e53155b4adcfaa259b59edc0da8/house-party) 
-or picture of your physical board
+
 
 ### Git
 
