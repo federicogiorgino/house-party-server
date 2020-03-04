@@ -13,28 +13,43 @@ const {
   validationSignup
 } = require("../helpers/middlewares");
 
+// GET '/auth/me'
+router.get("/me", isLoggedIn, (req, res, next) => {
+  const currentUserSessionData = req.session.currentUser;
+  //checks ifLoggedIn
+  currentUserSessionData.password = "*";
+  // if loggedIn sends back a json with the current user data
+  res.status(200).json(currentUserSessionData);
+});
+
 // POST '/auth/signup'
 router.post("/signup", isNotLoggedIn, validationSignup, async (req, res, next) => {
   // destructures the req.body and gets the username, password properties from it
-  const { username, password } = req.body;
+  const { firstName, lastName, username, password, email, bio } = req.body;
 
   try {
     // projection
     const usernameExists = await User.findOne({ username }, "username");
-    const emailExists = await User.findOne({ email }, "email");
 
     //checks if username exists and return an error 400 if it does
-    if (usernameExists || emailExists) return next(createError(400));
+    if (usernameExists) return next(createError(400));
     else {
       //if not , proceedes with password creation
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashPass = bcrypt.hashSync(password, salt);
-      const newUser = await User.create({ username, password: hashPass });
+      const newUser = await User.create({
+        firstName,
+        lastName,
+        username,
+        password: hashPass,
+        email,
+        bio
+      });
       //hides the password
       newUser.password = "*";
       req.session.currentUser = newUser;
       res
-        .status(201) //Created
+        .status(200) //Created
         .json(newUser); //Sends a JSON file with all the current user data
     }
   } catch (error) {
@@ -75,15 +90,6 @@ router.post("/logout", isLoggedIn, (req, res, next) => {
   res
     .status(204) //  No Content
     .send();
-});
-
-// GET '/auth/me'
-router.get("/me", isLoggedIn, (req, res, next) => {
-  const currentUserSessionData = req.session.currentUser;
-  //checks ifLoggedIn
-  currentUserSessionData.password = "*";
-  // if loggedIn sends back a json with the current user data
-  res.status(200).json(currentUserSessionData);
 });
 
 module.exports = router;

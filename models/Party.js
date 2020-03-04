@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const partySchema = new Schema({
+  host: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   title: { type: String, required: true },
   description: { type: String, required: true },
   guestLimit: { type: Number, required: true },
-  guestsID: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  hostID: { type: String },
+  guests: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   city: {
     type: String,
     enum: [

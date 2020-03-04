@@ -9,14 +9,10 @@ const userSchema = new Schema({
   email: { type: String, required: true },
   attending: [{ type: mongoose.Schema.Types.ObjectId, ref: "Party" }],
   organizing: [{ type: mongoose.Schema.Types.ObjectId, ref: "Party" }],
-  profilePicture: { type: String, required: true },
+  profilePicture: { type: String },
   bio: { type: String, required: true }
 });
 
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
-
-
-
-

@@ -45,8 +45,8 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-//PUT /user/edit/:id
-router.put("/edit/:id", async (req, res, next) => {
+//PUT /user/:id
+router.put("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const { firstName, lastName, username, password, email, profilePicture, bio } = req.body;
@@ -81,3 +81,5 @@ router.put("/edit/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+module.exports = router;

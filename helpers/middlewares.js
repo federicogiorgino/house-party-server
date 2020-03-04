@@ -15,9 +15,9 @@ exports.isNotLoggedIn = (req, res, next) => {
 };
 
 exports.validationSignup = (req, res, next) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, username, password, email, bio } = req.body;
 
-  if (!firstName || !lastName || !email || !password) next(createError(400));
+  if (!firstName || !lastName || !username || !email || !password || !bio) next(createError(400));
   else next();
 };
 
