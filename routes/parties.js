@@ -18,7 +18,7 @@ router.get("/:id", async (req, res, next) => {
       return;
     }
     //if the id is valid . looks for the specif party with the ID specified and populates it with autor and guests
-    const party = await Party.findById(id).populate("author guests");
+    const party = await Party.findById(id).populate("author");
     res.status(200).json(party);
   } catch (error) {
     next(error);
@@ -53,7 +53,7 @@ router.post("/", (req, res, next) => {
   console.log("hello");
 
   const { title, description, guestLimit, city, address, date } = req.body;
-  //chec if the required field exists
+  //check if the required field exists
   if (!title || !description || !guestLimit || !city || !address || !date) {
     return next(createError(404)); //sends error if they don't exists
   } else {
@@ -71,12 +71,14 @@ router.post("/", (req, res, next) => {
         const partyId = newParty._id;
         const userId = req.session.currentUser._id;
         //find the user with current session id and adds to the array 'organizing' the party id
-        User.findByIdAndUpdate(userId, { $push: { organizing: partyId } }, { new: true });
-        then(updatedUser => {
-          // sends back positive response and json the updatedUser data
-          res.status(200).json(updatedUser);
-        });
-        res.status(200).json(newParty);
+        User.findByIdAndUpdate(userId, { $push: { organizing: partyId } }, { new: true }).then(
+          updatedUser => {
+            // sends back positive response and json the updatedUser data
+            // res.status(200).json(updatedUser);
+            res.status(200).json(newParty);
+          }
+        );
+        // res.status(200).json(newParty);
       })
       .catch(error => {
         next(error);

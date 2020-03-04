@@ -49,7 +49,7 @@ router.get("/:id", async (req, res, next) => {
 router.put("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { firstName, lastName, username, password, email, profilePicture, bio } = req.body;
+    const { firstName, lastName, username, password, email, bio } = req.body;
     //check if the id of the user being modified is equal to the loggedIn user ID
     if (id !== req.session.currentUser._id) {
       res.status(401).json({ message: "Non authorizhed ID " });
@@ -67,7 +67,6 @@ router.put("/:id", async (req, res, next) => {
           username,
           password,
           email,
-          profilePicture,
           bio
         },
         { new: true }
@@ -79,6 +78,21 @@ router.put("/:id", async (req, res, next) => {
     }
   } catch (error) {
     next(error);
+  }
+});
+
+// DELETE /user/:id
+router.delete("/:id", async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findById(id);
+    if (!user) return next(createError(404));
+    else {
+      await User.deleteOne({ _id: id });
+      res.status(200).send();
+    }
+  } catch (error) {
+    next(createError(error));
   }
 });
 

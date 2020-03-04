@@ -29,4 +29,5 @@ const partySchema = new Schema({
 
 const Party = mongoose.model("Event", partySchema);
 
+
 module.exports = Party;
