@@ -5,9 +5,15 @@ const mongoose = require("mongoose");
 
 const Party = require("../models/Party");
 const User = require("../models/User");
+const {
+  isLoggedIn,
+  isNotLoggedIn,
+  validationLogin,
+  validationSignup
+} = require("../helpers/middlewares");
 
 //GET /parties/:id => shows specific party
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", isLoggedIn, async (req, res, next) => {
   try {
     const { id } = req.params;
     // deconstruct req.params and get id
@@ -26,7 +32,7 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // DELETE	/parties/delete/:id	===> delete specific party
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", isLoggedIn, async (req, res, next) => {
   // gets the party id from the params
   const partyId = req.params.id;
 
@@ -49,7 +55,7 @@ router.delete("/:id", async (req, res, next) => {
 });
 
 //POST /parties/create => create a party
-router.post("/", (req, res, next) => {
+router.post("/", isLoggedIn, (req, res, next) => {
   console.log("hello");
 
   const { title, description, guestLimit, city, address, date } = req.body;
@@ -87,7 +93,7 @@ router.post("/", (req, res, next) => {
 });
 
 //PUT /parties/:id
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", isLoggedIn, async (req, res, next) => {
   try {
     const { id } = req.params;
     const { title, description, guestLimit, city, address, date } = req.body;
@@ -104,6 +110,9 @@ router.put("/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+
+
 // //DELETE /parties/:id
 // router.delete("/:id", async (req, res, next) => {
 //   const id = req.params.id;
@@ -126,7 +135,7 @@ router.put("/:id", async (req, res, next) => {
 // });
 
 //GET /parties => shows all parties
-router.get("/", async (req, res, next) => {
+router.get("/", isLoggedIn, async (req, res, next) => {
   try {
     //gets all the parties
     const parties = await Party.find();

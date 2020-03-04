@@ -6,27 +6,15 @@ const moongoose = require("mongoose");
 const User = require(".././models/User");
 const Party = require(".././models/Party");
 
-//GET /user => Show all users
-router.get("/", async (req, res, next) => {
-  try {
-    //search for user in db
-    const users = await User.find();
-    //if no user exists sends back an error404
-    if (!users) {
-      next(createError(404));
-    } else {
-      //positive status and sends back json file of all users
-      res.status(200).json(users);
-      //maps through all the users
-      users.map(user => res.json(user));
-    }
-  } catch (error) {
-    next(error);
-  }
-});
+const {
+  isLoggedIn,
+  isNotLoggedIn,
+  validationLogin,
+  validationSignup
+} = require("../helpers/middlewares");
 
 //GET /user/:id => Shows specific user
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", isLoggedIn, async (req, res, next) => {
   try {
     // deconstruct req.params and get id
     const { id } = req.params;
@@ -46,7 +34,7 @@ router.get("/:id", async (req, res, next) => {
 });
 
 //PUT /user/:id
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", isLoggedIn, async (req, res, next) => {
   try {
     const { id } = req.params;
     const { firstName, lastName, username, password, email, bio } = req.body;
@@ -82,7 +70,7 @@ router.put("/:id", async (req, res, next) => {
 });
 
 // DELETE /user/:id
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", isLoggedIn, async (req, res, next) => {
   const { id } = req.params;
   try {
     const user = await User.findById(id);
@@ -96,4 +84,62 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
+//PUT /user/:id/attend-party/:partyId
+router.put("/:id/attend-party/:partyId", async (req, res, next) => {
+  try {
+    const { id, partyId } = req.params;
+    const updatedUser = User.findByIdAndUpdate(
+      //finds the user with id coming from req.params
+      id,
+      //adds the party with the partyid from req.params to the attending array
+      { $addToSet: { attending: partyId } },
+      { new: true }
+    );
+
+    //sets the current session user to the updated user
+    req.session.currentUser = updatedUser;
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//PUT /user/:id/leave-party/:partyId
+router.put("/:id/leave-party/:partyId", async (req, res, next) => {
+  try {
+    const { id, partyId } = req.params;
+    const updatedUser = User.findByIdAndUpdate(
+      //finds the user with id coming from req.params
+      id,
+      //removes the party with the partyid from req.params from the attending array
+      { $pull: { attending: partyId } },
+      { new: true }
+    ).populate("attending");
+
+    //sets the current session user to the updated user
+    req.session.currentUser = updatedUser;
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//GET /user => Show all users
+router.get("/", isLoggedIn, async (req, res, next) => {
+  try {
+    //search for user in db
+    const users = await User.find();
+    //if no user exists sends back an error404
+    if (!users) {
+      next(createError(404));
+    } else {
+      //positive status and sends back json file of all users
+      res.status(200).json(users);
+      //maps through all the users
+      users.map(user => res.json(user));
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 module.exports = router;
