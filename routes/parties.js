@@ -86,6 +86,45 @@ router.post("/", (req, res, next) => {
   }
 });
 
+//PUT /parties/:id
+router.put("/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { title, description, guestLimit, city, address, date } = req.body;
+
+    await Party.findByIdAndUpdate(
+      id,
+      { title, description, guestLimit, city, address, date },
+      { new: true }
+    );
+
+    const updatedParty = await Party.findById(id);
+    res.status(200).json(updatedParty);
+  } catch (error) {
+    next(error);
+  }
+});
+// //DELETE /parties/:id
+// router.delete("/:id", async (req, res, next) => {
+//   const id = req.params.id;
+//   try {
+//     // search and removes the party with the 'id'
+//     await Event.findByIdAndRemove(id);
+//     // looks at every user and updated the organizing and attending array removing the party with the id
+//     await User.updateMany(
+//       {},
+//       {
+//         $pull: { organizing: id, attending: id }
+//       },
+//       { new: true }
+//     );
+
+//     res.status(200).json({ message: "Event deleted" });
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
 //GET /parties => shows all parties
 router.get("/", async (req, res, next) => {
   try {
