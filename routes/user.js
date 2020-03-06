@@ -14,7 +14,7 @@ const {
 } = require("../helpers/middlewares");
 
 //GET /user/:id => Shows specific user
-router.get("/:id", isLoggedIn, async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
     // deconstruct req.params and get id
     const { id } = req.params;
@@ -34,7 +34,7 @@ router.get("/:id", isLoggedIn, async (req, res, next) => {
 });
 
 //PUT /user/:id
-router.put("/:id", isLoggedIn, async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const { firstName, lastName, username, password, email, bio } = req.body;
@@ -70,7 +70,7 @@ router.put("/:id", isLoggedIn, async (req, res, next) => {
 });
 
 // DELETE /user/:id
-router.delete("/:id", isLoggedIn, async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
     const user = await User.findById(id);
@@ -88,17 +88,20 @@ router.delete("/:id", isLoggedIn, async (req, res, next) => {
 router.put("/:id/attend-party/:partyId", async (req, res, next) => {
   try {
     const { id, partyId } = req.params;
-    const updatedUser = User.findByIdAndUpdate(
+    console.log("id :", id);
+    console.log("partyId :", partyId);
+    const updatedUser = await User.findByIdAndUpdate(
       //finds the user with id coming from req.params
       id,
       //adds the party with the partyid from req.params to the attending array
-      { $addToSet: { attending: partyId } },
+      { $push: { attending: partyId } },
       { new: true }
-    );
+    ).populate("attending");
 
     //sets the current session user to the updated user
     req.session.currentUser = updatedUser;
     res.status(200).json(updatedUser);
+    console.log("updatedUser :", updatedUser);
   } catch (error) {
     next(error);
   }
@@ -108,7 +111,7 @@ router.put("/:id/attend-party/:partyId", async (req, res, next) => {
 router.put("/:id/leave-party/:partyId", async (req, res, next) => {
   try {
     const { id, partyId } = req.params;
-    const updatedUser = User.findByIdAndUpdate(
+    const updatedUser = await User.findByIdAndUpdate(
       //finds the user with id coming from req.params
       id,
       //removes the party with the partyid from req.params from the attending array
@@ -125,7 +128,7 @@ router.put("/:id/leave-party/:partyId", async (req, res, next) => {
 });
 
 //GET /user => Show all users
-router.get("/", isLoggedIn, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     //search for user in db
     const users = await User.find();

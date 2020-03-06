@@ -111,29 +111,6 @@ router.put("/:id", isLoggedIn, async (req, res, next) => {
   }
 });
 
-
-
-// //DELETE /parties/:id
-// router.delete("/:id", async (req, res, next) => {
-//   const id = req.params.id;
-//   try {
-//     // search and removes the party with the 'id'
-//     await Event.findByIdAndRemove(id);
-//     // looks at every user and updated the organizing and attending array removing the party with the id
-//     await User.updateMany(
-//       {},
-//       {
-//         $pull: { organizing: id, attending: id }
-//       },
-//       { new: true }
-//     );
-
-//     res.status(200).json({ message: "Event deleted" });
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
 //GET /parties => shows all parties
 router.get("/", isLoggedIn, async (req, res, next) => {
   try {

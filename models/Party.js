@@ -23,11 +23,10 @@ const partySchema = new Schema({
     required: true
   },
   address: { type: String, required: true },
-  date: { type: String, required: true },
+  date: { type: Date, required: true },
   photo: [{ type: String }]
 });
 
-const Party = mongoose.model("Event", partySchema);
-
+const Party = mongoose.model("Party", partySchema);
 
 module.exports = Party;
