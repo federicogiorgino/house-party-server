@@ -25,7 +25,7 @@ router.get("/me", isLoggedIn, (req, res, next) => {
 // POST '/auth/signup'
 router.post("/signup", isNotLoggedIn, validationSignup, async (req, res, next) => {
   // destructures the req.body and gets the username, password properties from it
-  const { firstName, lastName, username, password, email, bio } = req.body;
+  const { firstName, lastName, username, password, email, bio, image, phone } = req.body;
 
   try {
     // projection
@@ -43,7 +43,9 @@ router.post("/signup", isNotLoggedIn, validationSignup, async (req, res, next) =
         username,
         password: hashPass,
         email,
-        bio
+        bio,
+        image,
+        phone
       });
       //hides the password
       newUser.password = "*";

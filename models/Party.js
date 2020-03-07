@@ -18,7 +18,7 @@ const partySchema = new Schema({
       "Berlin",
       "New York City",
       "Moscow",
-      "Miami"
+      "Sao Paulo"
     ],
     required: true
   },

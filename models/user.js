@@ -9,8 +9,9 @@ const userSchema = new Schema({
   email: { type: String, required: true },
   attending: [{ type: mongoose.Schema.Types.ObjectId, ref: "Party" }],
   organizing: [{ type: mongoose.Schema.Types.ObjectId, ref: "Party" }],
-  profilePicture: { type: String },
-  bio: { type: String, required: true }
+  bio: { type: String, required: true },
+  phone: { type: Number },
+  image: { type: String }
 });
 
 const User = mongoose.model("User", userSchema);

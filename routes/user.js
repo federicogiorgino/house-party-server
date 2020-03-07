@@ -6,13 +6,6 @@ const moongoose = require("mongoose");
 const User = require(".././models/User");
 const Party = require(".././models/Party");
 
-const {
-  isLoggedIn,
-  isNotLoggedIn,
-  validationLogin,
-  validationSignup
-} = require("../helpers/middlewares");
-
 //GET /user/:id => Shows specific user
 router.get("/:id", async (req, res, next) => {
   try {
@@ -37,7 +30,7 @@ router.get("/:id", async (req, res, next) => {
 router.put("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { firstName, lastName, username, password, email, bio } = req.body;
+    const { firstName, lastName, username, password, email, bio, phone, image } = req.body;
     //check if the id of the user being modified is equal to the loggedIn user ID
     if (id !== req.session.currentUser._id) {
       res.status(401).json({ message: "Non authorizhed ID " });
@@ -55,7 +48,9 @@ router.put("/:id", async (req, res, next) => {
           username,
           password,
           email,
-          bio
+          bio,
+          phone,
+          image
         },
         { new: true }
       );
@@ -88,8 +83,7 @@ router.delete("/:id", async (req, res, next) => {
 router.put("/:id/attend-party/:partyId", async (req, res, next) => {
   try {
     const { id, partyId } = req.params;
-    console.log("id :", id);
-    console.log("partyId :", partyId);
+
     const updatedUser = await User.findByIdAndUpdate(
       //finds the user with id coming from req.params
       id,
@@ -97,6 +91,8 @@ router.put("/:id/attend-party/:partyId", async (req, res, next) => {
       { $push: { attending: partyId } },
       { new: true }
     ).populate("attending");
+
+    await Party.findByIdAndUpdate(partyId, { $addToSet: { guests: id } }, { new: true });
 
     //sets the current session user to the updated user
     req.session.currentUser = updatedUser;
@@ -118,6 +114,8 @@ router.put("/:id/leave-party/:partyId", async (req, res, next) => {
       { $pull: { attending: partyId } },
       { new: true }
     ).populate("attending");
+
+    await Party.findByIdAndUpdate(partyId, { $pull: { guests: id } }, { new: true });
 
     //sets the current session user to the updated user
     req.session.currentUser = updatedUser;
