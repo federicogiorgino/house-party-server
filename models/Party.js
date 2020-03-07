@@ -12,8 +12,8 @@ const partySchema = new Schema({
     enum: [
       "Rome",
       "Barcelona",
-      "Zurich",
-      "Amsterdam",
+      "San Francisco",
+      "London",
       "Paris",
       "Berlin",
       "New York City",
@@ -24,7 +24,7 @@ const partySchema = new Schema({
   },
   address: { type: String, required: true },
   date: { type: Date, required: true },
-  photo: [{ type: String }]
+  image: { type: String }
 });
 
 const Party = mongoose.model("Party", partySchema);

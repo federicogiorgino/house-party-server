@@ -24,7 +24,7 @@ router.get("/:id", isLoggedIn, async (req, res, next) => {
       return;
     }
     //if the id is valid . looks for the specif party with the ID specified and populates it with autor and guests
-    const party = await Party.findById(id).populate("author");
+    const party = await Party.findById(id).populate("author guests");
     res.status(200).json(party);
   } catch (error) {
     next(error);
@@ -58,7 +58,7 @@ router.delete("/:id", isLoggedIn, async (req, res, next) => {
 router.post("/", isLoggedIn, (req, res, next) => {
   console.log("hello");
 
-  const { title, description, guestLimit, city, address, date } = req.body;
+  const { title, description, guestLimit, city, address, date, image } = req.body;
   //check if the required field exists
   if (!title || !description || !guestLimit || !city || !address || !date) {
     return next(createError(404)); //sends error if they don't exists
@@ -71,7 +71,8 @@ router.post("/", isLoggedIn, (req, res, next) => {
       guestLimit,
       city,
       address,
-      date
+      date,
+      image
     })
       .then(newParty => {
         const partyId = newParty._id;

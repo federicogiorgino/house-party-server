@@ -10,6 +10,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const auth = require("./routes/auth");
+const cloudinary = require("./routes/cloudinary");
 const parties = require("./routes/parties");
 const user = require("./routes/user");
 
@@ -66,6 +67,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // ROUTER MIDDLEWARE
+app.use("/cloudinary", cloudinary);
 app.use("/parties", parties);
 app.use("/user", user);
 app.use("/auth", auth);
