@@ -77,7 +77,7 @@ router.post("/login", isNotLoggedIn, validationLogin, async (req, res, next) => 
       req.session.currentUser = user;
       res.status(200).json(user);
     } else {
-      next(createError(401)); // Unauthorized
+      next(createError(401)); // Not authorized
     }
   } catch (error) {
     next(createError(error));
