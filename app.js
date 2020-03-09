@@ -31,7 +31,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: [process.env.PUBLIC_DOMAIN]
+    origin: [process.env.PUBLIC_DOMAIN, "https://house-fiesta.herokuapp.com"]
   })
 );
 
@@ -71,6 +71,12 @@ app.use("/cloudinary", cloudinary);
 app.use("/parties", parties);
 app.use("/user", user);
 app.use("/auth", auth);
+
+// ROUTE FOR SERVING REACT APP (index.html)
+app.use((req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 // 404
 // catch 404 and forward to error handler

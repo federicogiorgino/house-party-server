@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/static/css/main.485fa9f9.chunk.css",
+    "main.js": "/static/js/main.6f70ddeb.chunk.js",
+    "main.js.map": "/static/js/main.6f70ddeb.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.22b866d5.js",
+    "runtime-main.js.map": "/static/js/runtime-main.22b866d5.js.map",
+    "static/css/2.47e06e2e.chunk.css": "/static/css/2.47e06e2e.chunk.css",
+    "static/js/2.1c4a765d.chunk.js": "/static/js/2.1c4a765d.chunk.js",
+    "static/js/2.1c4a765d.chunk.js.map": "/static/js/2.1c4a765d.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.0e156584fd02e98d323e912e7c8a6e07.js": "/precache-manifest.0e156584fd02e98d323e912e7c8a6e07.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.47e06e2e.chunk.css.map": "/static/css/2.47e06e2e.chunk.css.map",
+    "static/css/main.485fa9f9.chunk.css.map": "/static/css/main.485fa9f9.chunk.css.map",
+    "static/js/2.1c4a765d.chunk.js.LICENSE.txt": "/static/js/2.1c4a765d.chunk.js.LICENSE.txt",
+    "static/media/003-big ben.svg": "/static/media/003-big ben.0be432bc.svg",
+    "static/media/003-sagrada familia.svg": "/static/media/003-sagrada familia.64ee45ba.svg",
+    "static/media/004-brandenburg gate.svg": "/static/media/004-brandenburg gate.35e47423.svg",
+    "static/media/005-christ the redeemer.svg": "/static/media/005-christ the redeemer.dd3914b2.svg",
+    "static/media/006-grand mosque.svg": "/static/media/006-grand mosque.3ca0c3e5.svg",
+    "static/media/010-eiffel tower.svg": "/static/media/010-eiffel tower.811bf0f6.svg",
+    "static/media/013-golden gate.svg": "/static/media/013-golden gate.0efd5039.svg",
+    "static/media/029-statue of liberty.svg": "/static/media/029-statue of liberty.66f45a56.svg",
+    "static/media/034-Colosseum.svg": "/static/media/034-Colosseum.d01a25a3.svg",
+    "static/media/dancing.svg": "/static/media/dancing.59d97dc4.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.22b866d5.js",
+    "static/css/2.47e06e2e.chunk.css",
+    "static/js/2.1c4a765d.chunk.js",
+    "static/css/main.485fa9f9.chunk.css",
+    "static/js/main.6f70ddeb.chunk.js"
+  ]
+}
