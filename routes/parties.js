@@ -24,8 +24,31 @@ router.get("/:id", isLoggedIn, async (req, res, next) => {
       return;
     }
     //if the id is valid . looks for the specif party with the ID specified and populates it with autor and guests
-    const party = await Party.findById(id).populate("author guests");
+    const party = await Party.findById(id).populate("host guests");
+
     res.status(200).json(party);
+  } catch (error) {
+    next(error);
+  }
+});
+//GET /parties/:city => shows specific party with city matching
+router.get("/search/:city", isLoggedIn, async (req, res, next) => {
+  try {
+    const city = req.params.city;
+
+    console.log("req.params.city", req.params.city);
+
+    // deconstruct req.params and get city
+    // check if the city is valid
+    if (!city) {
+      //if not sends back an error
+      res.status(400).json({ message: "City not valid" });
+      return;
+    }
+    //if the city is valid . looks for the specif party with the Cities specified
+    const parties = await Party.find({ city }).populate("host guests");
+
+    res.status(200).json(parties);
   } catch (error) {
     next(error);
   }
@@ -116,7 +139,7 @@ router.put("/:id", isLoggedIn, async (req, res, next) => {
 router.get("/", isLoggedIn, async (req, res, next) => {
   try {
     //gets all the parties
-    const parties = await Party.find();
+    const parties = await Party.find().populate("host");
     if (!parties) {
       //if no parties exist
       // next(createError(404)); // create an error 404

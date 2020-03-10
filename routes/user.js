@@ -71,9 +71,14 @@ router.delete("/:id", async (req, res, next) => {
     const user = await User.findById(id);
     if (!user) return next(createError(404));
     else {
-      await req.session.destroy();
+      req.session.destroy();
+      console.log("req.session :", req.session);
+      // user.hosted.forEach(el => {
+      //   Party.deleteOne({ id: el._id });
+      // });
+
       await User.deleteOne({ _id: id });
-      res.status(200).send();
+      res.status(200).json({ msg: "User deleted succesfully" });
     }
   } catch (error) {
     next(createError(error));
