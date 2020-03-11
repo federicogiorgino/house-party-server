@@ -33,6 +33,7 @@ router.post("/signup", isNotLoggedIn, validationSignup, async (req, res, next) =
 
     //checks if username exists and return an error 400 if it does
     if (usernameExists) return next(createError(400));
+    // if (usernameExists) res.status(400).json({ msg: "Username already in use" });
     else {
       //if not , proceedes with password creation
       const salt = bcrypt.genSaltSync(saltRounds);

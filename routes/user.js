@@ -72,7 +72,7 @@ router.delete("/:id", async (req, res, next) => {
     if (!user) return next(createError(404));
     else {
       req.session.destroy();
-      console.log("req.session :", req.session);
+      // console.log("req.session :", req.session);
       // user.hosted.forEach(el => {
       //   Party.deleteOne({ id: el._id });
       // });
@@ -98,12 +98,12 @@ router.put("/:id/attend-party/:partyId", async (req, res, next) => {
       { new: true }
     ).populate("attending");
 
-    await Party.findByIdAndUpdate(partyId, { $addToSet: { guests: id } }, { new: true });
+    await Party.findByIdAndUpdate(partyId, { $push: { guests: id } }, { new: true });
 
     //sets the current session user to the updated user
     req.session.currentUser = updatedUser;
     res.status(200).json(updatedUser);
-    console.log("updatedUser :", updatedUser);
+    // console.log("updatedUser :", updatedUser);
   } catch (error) {
     next(error);
   }
